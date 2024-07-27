@@ -55,7 +55,7 @@ Navigate to the project directory and build the Docker image:
 
 ```bash
 docker build -t tcpcheck-docker .
-
+```
 
 Running the Docker Container
 
@@ -63,33 +63,29 @@ To run the Docker container with a specific name and using Google DNS:
 
 ```
 docker run -d -p 8080:8080 --name tcpcheck-container --dns 8.8.8.8 tcpcheck-docker
-
 ```
+
 Pushing the Docker Image to Docker Hub
+
 Tag the Docker image:
 
 ```
 docker tag tcpcheck-docker jayeshmahajan/tcpcheck:v0.0.0
-
 ```
 
 Log in to Docker Hub:
 
 ```
 docker login
-
 ```
 
 Push the Docker image to the repository:
 
 ```
-
 docker push jayeshmahajan/tcpcheck:v0.0.0
-
 ```
 
-Usage
-API Endpoints
+Usage: API Endpoints
 Check TCP Connection
 URL: /check_connection
 
@@ -109,7 +105,6 @@ curl 'http://127.0.0.1:8080/check_connection?port=80&domain=example.com'
 Response:
 
 ```
-
 {
     "message": "TCP connection successful",
     "dns_result": {
@@ -119,8 +114,6 @@ Response:
         ]
     }
 }
-
-
 ```
 
 Check HTTP/HTTPS Connection
@@ -136,15 +129,12 @@ timeout: Timeout for the connection in seconds (optional, default is 10)
 Example:
 
 ```
-
 curl 'http://127.0.0.1:8080/check_http_connection?domain=www.google.com'
-
 ```
 
 Respone: 
 
 ```
-
 {
     "message": "HTTP connection successful",
     "dns_result": {
@@ -154,7 +144,6 @@ Respone:
         ]
     }
 }
-
 ```
 
 Error Handling
@@ -166,12 +155,9 @@ HTTP/HTTPS Connection Errors: When the HTTP/HTTPS connection fails, including SS
 Example Error Response
 
 ```
-
 {
     "error": "DNS resolution failed: A DNS label is empty."
 }
-
-
 ```
 Test Script
 A test script (test/check.sh) is provided to run multiple API calls and print the results. Example usage:
