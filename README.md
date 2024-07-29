@@ -16,7 +16,6 @@ This project provides a Flask-based API to check network connections for TCP and
 ```plaintext
 tcpcheck-docker/
 ├── app/
-│   ├── __init__.py
 │   ├── app.py
 ├── requirements.txt
 ├── Dockerfile
