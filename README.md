@@ -9,6 +9,7 @@ This project provides a Flask-based API to check network connections for TCP and
 - **DNS Resolution**: Provides detailed DNS information including CNAME and all resolved IP addresses.
 - **Pretty-Printed JSON Responses**: Returns responses in a readable JSON format.
 - **SSL Error Handling**: Captures and returns detailed SSL errors.
+- **Rate Limiting**: Prevents attack on app server by adding rate limiting for accidental overload of app
 
 ## Project Structure
 
