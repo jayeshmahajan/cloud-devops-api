@@ -18,8 +18,11 @@ http://127.0.0.1:8080/check_http_connection?protocol=https&domain=google.com
 http://127.0.0.1:8080/check_http_connection?protocol=https&domain=wrong.host.badssl.com
 http://127.0.0.1:8080/check_http_connection?protocol=https&domain=www.ge.com'
 
+count=0
+
 for url in $urls; do
-    echo "============================="
+    count=$((count + 1))
+    echo "============ $count ================="
     echo "$url"
     curl $url
 done

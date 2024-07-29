@@ -1,0 +1,47 @@
+#!/bin/bash
+
+urls='http://127.0.0.1:8080/check_connection?port=80&domain=example.com
+http://127.0.0.1:8080/check_http_connection?domain=example.com
+http://127.0.0.1:8080/check_http_connection?domain=www.ge.com
+http://127.0.0.1:8080/check_http_connection?domain=www.ge.com
+http://127.0.0.1:8080/check_http_connection?domain=example.com
+http://127.0.0.1:8080/check_http_connection?domain=www.ge.com
+http://127.0.0.1:8080/check_http_connection?domain=example.com
+http://127.0.0.1:8080/check_http_connection?domain=www.ge.com
+http://127.0.0.1:8080/check_http_connection?domain=example.com
+http://127.0.0.1:8080/check_http_connection?domain=www.ge.com
+http://127.0.0.1:8080/check_http_connection?domain=example.com
+http://127.0.0.1:8080/check_http_connection?domain=www.ge.com
+http://127.0.0.1:8080/check_http_connection?domain=example.com
+http://127.0.0.1:8080/check_http_connection?domain=www.ge.com
+http://127.0.0.1:8080/check_http_connection?domain=example.com
+http://127.0.0.1:8080/check_http_connection?domain=www.ge.com
+http://127.0.0.1:8080/check_http_connection?domain=example.com
+http://127.0.0.1:8080/check_http_connection?domain=www.ge.com
+http://127.0.0.1:8080/check_http_connection?domain=example.com
+http://127.0.0.1:8080/check_http_connection?domain=www.ge.com
+http://127.0.0.1:8080/check_http_connection?domain=example.com
+http://127.0.0.1:8080/check_http_connection?domain=www.ge.com
+http://127.0.0.1:8080/check_http_connection?domain=example.com
+http://127.0.0.1:8080/check_http_connection?domain=www.ge.com
+http://127.0.0.1:8080/check_http_connection?domain=example.com
+http://127.0.0.1:8080/check_http_connection?domain=www.ge.com
+http://127.0.0.1:8080/check_http_connection?domain=example.com
+http://127.0.0.1:8080/check_http_connection?domain=www.ge.com
+http://127.0.0.1:8080/check_http_connection?domain=example.com
+http://127.0.0.1:8080/check_http_connection?domain=www.ge.com
+http://127.0.0.1:8080/check_http_connection?domain=example.com
+http://127.0.0.1:8080/check_http_connection?domain=www.ge.com
+http://127.0.0.1:8080/check_http_connection?domain=example.com
+http://127.0.0.1:8080/check_http_connection?domain=www.ge.com
+http://127.0.0.1:8080/check_http_connection?protocol=https&domain=wrong.host.badssl.com'
+
+count=0
+
+for url in $urls; do
+    count=$((count + 1))
+    echo "\n============ $count ========== time: $(date)======="
+    echo "$url"
+    curl $url
+done
+

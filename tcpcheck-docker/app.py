@@ -4,8 +4,23 @@ import dns.resolver
 import ssl
 import http.client
 import json
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 app = Flask(__name__)
+
+def get_client_ip():
+    remote_addr = get_remote_address()
+    if request.headers.get('X-Forwarded-For'):
+        remote_addr = request.headers.get('X-Forwarded-For').split(',')[0]
+    return remote_addr
+
+# Configure the rate limiter with a single limit for simplicity
+limiter = Limiter(
+    key_func=get_client_ip,
+    app=app,
+    default_limits=["10 per minute"]
+)
 
 def dns_resolution(domain, timeout=10):
     try:
@@ -16,11 +31,11 @@ def dns_resolution(domain, timeout=10):
         cname_answers = resolver.resolve(domain, 'CNAME', raise_on_no_answer=False)
         if cname_answers.rrset:
             cname = cname_answers[0].to_text()
-        
+
         ip_answers = resolver.resolve(domain, 'A', raise_on_no_answer=False)
         for answer in ip_answers:
             ip_addresses.append(answer.to_text())
-        
+
         return {'cname': cname, 'ips': ip_addresses}, None
     except Exception as e:
         return None, str(e)
@@ -49,6 +64,7 @@ def pretty_json(data):
     return Response(json.dumps(data, indent=4), mimetype='application/json')
 
 @app.route('/check_connection', methods=['GET'])
+@limiter.limit("10 per minute")
 def check_connection():
     port = request.args.get('port')
     domain = request.args.get('domain')
@@ -72,6 +88,7 @@ def check_connection():
     return pretty_json({'message': message, 'dns_result': dns_result}), 200
 
 @app.route('/check_http_connection', methods=['GET'])
+@limiter.limit("10 per minute")
 def check_http_connection():
     protocol = request.args.get('protocol', 'https')
     domain = request.args.get('domain')
@@ -99,6 +116,10 @@ def check_http_connection():
         return pretty_json({'message': message, 'dns_result': dns_result, 'error': connection_error}), 500
 
     return pretty_json({'message': message, 'dns_result': dns_result}), 200
+
+@app.errorhandler(429)
+def ratelimit_handler(e):
+    return jsonify(error="rate limit exceeded: {}".format(e.description)), 429
 
 if __name__ == '__main__':
     app.run(debug=True, port=8080)
