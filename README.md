@@ -54,7 +54,7 @@ Entry point for running the Flask application with Gunicorn.
 Navigate to the project directory and build the Docker image:
 
 ```bash
-docker build -t tcpcheck-docker .
+docker build -t cloud-devops-api .
 ```
 
 Running the Docker Container
@@ -62,7 +62,7 @@ Running the Docker Container
 To run the Docker container with a specific name and using Google DNS:
 
 ```
-docker run -d -p 8080:8080 --name tcpcheck-container --dns 8.8.8.8 tcpcheck-docker
+docker run -d -p 8080:8080 --name cloud-devops-api --dns 8.8.8.8 cloud-devops-api
 ```
 
 Pushing the Docker Image to Docker Hub
@@ -70,7 +70,7 @@ Pushing the Docker Image to Docker Hub
 Tag the Docker image:
 
 ```
-docker tag tcpcheck-docker jayeshmahajan/tcpcheck:v0.0.0
+docker tag tcpcheck-docker jayeshmahajan/cloud-devops-api:v0.0.0
 ```
 
 Log in to Docker Hub:
@@ -82,7 +82,7 @@ docker login
 Push the Docker image to the repository:
 
 ```
-docker push jayeshmahajan/tcpcheck:v0.0.0
+docker push jayeshmahajan/cloud-devops-api:v0.0.0
 ```
 
 Usage: API Endpoints
